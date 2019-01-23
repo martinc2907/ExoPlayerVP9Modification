@@ -19,6 +19,7 @@ import com.google.android.exoplayer2.RenderersFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.drm.DrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
+import com.google.android.exoplayer2.ext.vp9.LibvpxVideoRenderer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.dash.DashChunkSource;
@@ -29,6 +30,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoRendererEventListener;
 
@@ -53,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
             protected void buildVideoRenderers(Context context, DrmSessionManager<FrameworkMediaCrypto> drmSessionManager,
                                                long allowedVideoJoiningTimeMs, Handler eventHandler, VideoRendererEventListener eventListener,
                                                int extensionRendererMode, ArrayList<Renderer> out){
-
-                super.buildVideoRenderers(context, drmSessionManager,allowedVideoJoiningTimeMs,eventHandler,eventListener,extensionRendererMode,out);
+                LibvpxVideoRenderer videoRenderer = new LibvpxVideoRenderer(true, 0);
+                out.add(videoRenderer);
             }
         };
 
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         mPlayerView = findViewById(R.id.video_view);
         mSimpleExoPlayer =
                 ExoPlayerFactory.newSimpleInstance(this,
-                        new DefaultRenderersFactory(this,DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER),
+                        new DefaultRenderersFactory(this),
                         new DefaultTrackSelector(),
                         new DefaultLoadControl(),
                         null);

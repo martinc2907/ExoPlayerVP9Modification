@@ -19,6 +19,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
+}
+
+repositories {
+    maven {
+        url 'https://google.bintray.com/tensorflow'
+    }
 }
 
 dependencies {
@@ -33,4 +43,6 @@ dependencies {
     implementation project(':exoplayer-library-dash')
     implementation project(':exoplayer-library-ui')
     implementation project(':exoplayer-extension-vp9')
+
+    compile 'org.tensorflow:tensorflow-lite:+'
 }
