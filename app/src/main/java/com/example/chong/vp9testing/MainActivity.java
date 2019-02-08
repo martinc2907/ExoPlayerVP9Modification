@@ -2,6 +2,9 @@ package com.example.chong.vp9testing;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.media.MediaExtractor;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
         };
 
         //create player and set it to view
+
+        findViewById(R.drawable.astro);
+
+
+
         mPlayerView = findViewById(R.id.video_view);
         mSimpleExoPlayer =
                 ExoPlayerFactory.newSimpleInstance(this,
@@ -78,11 +86,17 @@ public class MainActivity extends AppCompatActivity {
         params.height = params.MATCH_PARENT;
         mPlayerView.setLayoutParams(params);
 
-        //Create  media source
+
+                //Create  media source
         Uri uri = Uri.parse("https://storage.googleapis.com/exoplayer-test-media-1/gen-3/screens/dash-vod-single-segment/video-vp9-360.webm");
+        //https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+        //https://storage.googleapis.com/exoplayer-test-media-1/gen-3/screens/dash-vod-single-segment/video-vp9-360.webm
 
         //Create normal media source
         MediaSource mediaSource = createMediaSource(uri);
+
+        //mediaextractor for testing
+
 
         //use media source
         mSimpleExoPlayer.prepare(mediaSource);
