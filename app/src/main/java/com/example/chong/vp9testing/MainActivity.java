@@ -53,26 +53,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         //make new vid renderers factory
-        RenderersFactory renderersFactory = new DefaultRenderersFactory(this){
-            @Override
-            protected void buildVideoRenderers(Context context, DrmSessionManager<FrameworkMediaCrypto> drmSessionManager,
-                                               long allowedVideoJoiningTimeMs, Handler eventHandler, VideoRendererEventListener eventListener,
-                                               int extensionRendererMode, ArrayList<Renderer> out){
-                LibvpxVideoRenderer videoRenderer = new LibvpxVideoRenderer(true, 0);
-                out.add(videoRenderer);
-            }
-        };
+//        RenderersFactory renderersFactory = new DefaultRenderersFactory(this, this){
+//            @Override
+//            protected void buildVideoRenderers(Context context, DrmSessionManager<FrameworkMediaCrypto> drmSessionManager,
+//                                               long allowedVideoJoiningTimeMs, Handler eventHandler, VideoRendererEventListener eventListener,
+//                                               int extensionRendererMode, ArrayList<Renderer> out){
+//                LibvpxVideoRenderer videoRenderer = new LibvpxVideoRenderer(true, 0);
+//                out.add(videoRenderer);
+//            }
+//        };
 
         //create player and set it to view
-
-        findViewById(R.drawable.astro);
-
-
-
         mPlayerView = findViewById(R.id.video_view);
         mSimpleExoPlayer =
                 ExoPlayerFactory.newSimpleInstance(this,
-                        new DefaultRenderersFactory(this),
+                        new DefaultRenderersFactory(this, this,DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER),
                         new DefaultTrackSelector(),
                         new DefaultLoadControl(),
                         null);
